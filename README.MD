@@ -6,7 +6,7 @@ Training and Evaluating pipeline included.
 
 
 * Pretrained model: bert-base-uncased
-* Fine-Tuninf on PUBMED 20k RCT dataset
+* Fine-Tuninf on PUBMED 20k RCT dataset (uploaded on data folder)
 
 If you want to run repo use runRepo.ipynb
 
