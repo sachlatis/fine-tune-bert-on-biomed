@@ -1,7 +1,7 @@
 data:
-    train : ../data/train.txt
-    test : ../data/test.txt
-    dev: ../data/dev.txt
+    train : /kaggle/working/train.txt
+    test : /kaggle/working/test.txt
+    dev: /kaggle/working/dev.txt
     finetuned_model: /kaggle/working/fine-tune-bert-on-biomed/model/
 
 finetunedmodel:
