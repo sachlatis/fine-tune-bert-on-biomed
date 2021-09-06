@@ -22,7 +22,7 @@ def main(method, cfg):
         sentences = df.sentence.values
         labels = df.label.values
 
-        tokenizer = BertTokenizer.from_pretrained(cfg['data']['scibert_model'], do_lower_case=True)
+        tokenizer = BertTokenizer.from_pretrained('bert-base-uncased', do_lower_case=True)
 
         training_inputs, training_masks = get_encoded_data(tokenizer, sentences)
 
