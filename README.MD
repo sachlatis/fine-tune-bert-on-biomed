@@ -10,7 +10,9 @@ gg wp
 ```sh
 
 $pip install -r requirements.txt
-$ cd src
+$ cd data
+$ unzip train.zip
+$ cd ../src
 $ python3 sentence_classifier.py --mode train 
 $ python3 sentence_classifier.py --mode eval 
 ```
