@@ -48,7 +48,7 @@ def main(method, cfg):
         sentences = df.sentence.values
         labels = df.label.values
 
-        tokenizer = BertTokenizer.from_pretrained(cfg['data']['scibert_model'], do_lower_case=True)
+        tokenizer = BertTokenizer.from_pretrained('bert-base-uncased', do_lower_case=True)
         test_inputs, test_masks = get_encoded_data(tokenizer, sentences)
 
         # convert to torch tensors
@@ -62,7 +62,7 @@ def main(method, cfg):
 
 
         #load saved  model for eval
-        model = BertForSequenceClassification.from_pretrained(cfg['data']['scibert_finetuned_model'])
+        model = BertForSequenceClassification.from_pretrained(cfg['data']['finetuned_model'])
         model.eval()
 
         print_classification_report(prediction_dataloader,model,LABELS)
