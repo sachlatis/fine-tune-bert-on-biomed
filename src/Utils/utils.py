@@ -166,6 +166,9 @@ def print_classification_report(prediction_dataloader,model,LABELS):
             pred_labels.append(temp)
 
     print(classification_report(true_labels_flat, pred_labels, digits=4))
+    print()
+    print(accuracy_score)
+    return accuracy_score
 
 
 import torch
