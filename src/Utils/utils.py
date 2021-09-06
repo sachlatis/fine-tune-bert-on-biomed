@@ -124,7 +124,8 @@ def print_classification_report(prediction_dataloader,model,LABELS):
     # Predict
     for batch in prediction_dataloader:
         # Add batch to GPU
-        batch = tuple(t.to(device) for t in batch)
+        device = torch.device("cuda")
+        batch = tuple(t.to(device) for t in batch.to(device))
 
         # Unpack the inputs from our dataloader
         b_input_ids, b_input_mask, b_labels = batch
