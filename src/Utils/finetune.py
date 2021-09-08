@@ -11,7 +11,7 @@ from Utils.utils import  *
 def initialise_model(cfg,train_dataloader):
     # Load BertForSequenceClassification
     model = BertForSequenceClassification.from_pretrained(
-        'bert-base-uncased',
+        'emilyalsentzer/Bio_ClinicalBERT',
         num_labels=5,
         output_attentions=False,
         output_hidden_states=False,
