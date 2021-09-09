@@ -23,7 +23,7 @@ def main(method, cfg):
         labels = df.label.values
 
         #tokenizer = BertTokenizer.from_pretrained(''emilyalsentzer/Bio_ClinicalBERT'', do_lower_case=True)
-        tokenizer = BertTokenizer.from_pretrained('emilyalsentzer/Bio_ClinicalBERT', do_lower_case=True)
+        tokenizer = BertTokenizer.from_pretrained('allenai/scibert_scivocab_uncased', do_lower_case=True)
 
         training_inputs, training_masks = get_encoded_data(tokenizer, sentences)
 
@@ -50,7 +50,7 @@ def main(method, cfg):
         labels = df.label.values
 
         #tokenizer = BertTokenizer.from_pretrained(''emilyalsentzer/Bio_ClinicalBERT'', do_lower_case=True)
-        tokenizer = BertTokenizer.from_pretrained('emilyalsentzer/Bio_ClinicalBERT', do_lower_case=True)
+        tokenizer = BertTokenizer.from_pretrained('allenai/scibert_scivocab_uncased', do_lower_case=True)
         test_inputs, test_masks = get_encoded_data(tokenizer, sentences)
 
         # convert to torch tensors
