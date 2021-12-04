@@ -5,12 +5,12 @@ Example of Multi class text classification using PUBMED 20k RCT data for biomedi
 Training and Evaluating pipeline included.
 
 
-* Pretrained model: bert-base-uncased
+* Pretrained model: bert-base-uncased or allenai/scibert_scivocab_uncased
 * Fine-Tuninf on PUBMED 20k RCT dataset (uploaded on data folder)
 
 If you want to run repo use rctRUN.ipynb
 ----
-acc: 0.875
+acc(allenai/scibert_scivocab_uncased) : 0.875
 
 
 
