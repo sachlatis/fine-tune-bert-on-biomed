@@ -10,7 +10,8 @@ Training and Evaluating pipeline included.
 
 If you want to run repo use rctRUN.ipynb
 ----
-acc(allenai/scibert_scivocab_uncased) : 0.875
+* acc(bert-base-uncased) : 0.868
+* acc(allenai/scibert_scivocab_uncased) : 0.875
 
 
 
