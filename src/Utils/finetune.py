@@ -12,7 +12,7 @@ def initialise_model(cfg,train_dataloader):
     # Load BertForSequenceClassification
     # 'allenai/scibert_scivocab_uncased',
     model = BertForSequenceClassification.from_pretrained(
-        'bert-base-uncased',
+        'allenai/scibert_scivocab_uncased',
         num_labels=5,
         output_attentions=False,
         output_hidden_states=False,
