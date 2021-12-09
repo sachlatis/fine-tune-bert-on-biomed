@@ -24,8 +24,8 @@ def main(method, cfg):
 
         #tokenizer = BertTokenizer.from_pretrained(''emilyalsentzer/Bio_ClinicalBERT'', do_lower_case=True)
         #tokenizer = BertTokenizer.from_pretrained('allenai/scibert_scivocab_uncased', do_lower_case=True)
-        tokenizer = BertTokenizer.from_pretrained('allenai/scibert_scivocab_uncased', do_lower_case=True)
-    
+        tokenizer = BertTokenizer.from_pretrained('bert-base-uncased', do_lower_case=True)
+        
         training_inputs, training_masks = get_encoded_data(tokenizer, sentences)
 
         # convert to torch tensors
@@ -52,8 +52,8 @@ def main(method, cfg):
 
         #tokenizer = BertTokenizer.from_pretrained(''emilyalsentzer/Bio_ClinicalBERT'', do_lower_case=True)
         #tokenizer = BertTokenizer.from_pretrained('allenai/scibert_scivocab_uncased', do_lower_case=True)
-        tokenizer = BertTokenizer.from_pretrained('allenai/scibert_scivocab_uncased', do_lower_case=True)
-  
+        #tokenizer = BertTokenizer.from_pretrained('allenai/scibert_scivocab_uncased', do_lower_case=True)
+        tokenizer = BertTokenizer.from_pretrained('bert-base-uncased', do_lower_case=True)
         test_inputs, test_masks = get_encoded_data(tokenizer, sentences)
 
         # convert to torch tensors
@@ -67,7 +67,19 @@ def main(method, cfg):
 
 
         #load saved  model for eval
-        model = BertForSequenceClassification.from_pretrained(cfg['data']['finetuned_model'])
+        #model = BertForSequenceClassification.from_pretrained(cfg['data']['finetuned_model'])
+        model = BertForSequenceClassification.from_pretrained(cfg['pruning']['model_name'])
+        
+        head_mask = cfg['pruning']['head_mask']
+        head_mask = np.load(head_mask)
+        head_mask = torch.from_numpy(head_mask)
+        heads_to_prune = {}
+        for layer in range(len(head_mask)):
+            heads_to_mask = [h[0] for h in (1 - head_mask[layer].long()).nonzero().tolist()]
+            heads_to_prune[layer] = heads_to_mask
+        assert sum(len(h) for h in heads_to_prune.values()) == (1 - head_mask.long()).sum().item()
+        model.prune_heads(heads_to_prune)
+        
         model.eval()
 
         print_classification_report(prediction_dataloader,model,LABELS)
