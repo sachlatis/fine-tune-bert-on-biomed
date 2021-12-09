@@ -3,6 +3,7 @@ data:
     test : /kaggle/working/rct/data/test.txt
     dev: /kaggle/working/rct/data/dev.txt
     finetuned_model: /kaggle/working/rct/model/
+    
 
 finetunedmodel:
     model : /kaggle/working/rct/model/pytorch_model.bin
