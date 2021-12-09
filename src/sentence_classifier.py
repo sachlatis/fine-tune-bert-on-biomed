@@ -43,7 +43,7 @@ def main(method, cfg):
         save_model(model, cfg, tokenizer)
         sys.exit(1)
 
-    elif method == 'eval':
+    elif method == 'evalPruned':
         ## In this version, the eval is done on a pruned model.
 
         # load the labels from training data:label is key
@@ -52,7 +52,6 @@ def main(method, cfg):
         labels = df.label.values
 
         #tokenizer = BertTokenizer.from_pretrained(''emilyalsentzer/Bio_ClinicalBERT'', do_lower_case=True)
-        #tokenizer = BertTokenizer.from_pretrained('allenai/scibert_scivocab_uncased', do_lower_case=True)
         #tokenizer = BertTokenizer.from_pretrained('allenai/scibert_scivocab_uncased', do_lower_case=True)
         tokenizer = BertTokenizer.from_pretrained('bert-base-uncased', do_lower_case=True)
         test_inputs, test_masks = get_encoded_data(tokenizer, sentences)
@@ -68,7 +67,6 @@ def main(method, cfg):
 
 
         #load saved  model for eval
-        #model = BertForSequenceClassification.from_pretrained(cfg['data']['finetuned_model'])
         model = BertForSequenceClassification.from_pretrained(cfg['pruning']['model_name'])
         
         head_mask = np.load('/kaggle/working/head_mask.npy')
@@ -80,6 +78,35 @@ def main(method, cfg):
         assert sum(len(h) for h in heads_to_prune.values()) == (1 - head_mask.long()).sum().item()
         model.prune_heads(heads_to_prune)
         
+        model.eval()
+
+        print_classification_report(prediction_dataloader,model,LABELS)
+ 
+    elif method == 'eval':
+        ## In this version, the eval is done on a pruned model.
+
+        # load the labels from training data:label is key
+        df = preprocess_data(cfg['data']['test'])
+        sentences = df.sentence.values
+        labels = df.label.values
+
+        #tokenizer = BertTokenizer.from_pretrained(''emilyalsentzer/Bio_ClinicalBERT'', do_lower_case=True)
+        #tokenizer = BertTokenizer.from_pretrained('allenai/scibert_scivocab_uncased', do_lower_case=True)
+        tokenizer = BertTokenizer.from_pretrained('bert-base-uncased', do_lower_case=True)
+        test_inputs, test_masks = get_encoded_data(tokenizer, sentences)
+
+        # convert to torch tensors
+        tensor_inputs, tensor_labels, tensor_masks = get_torch_tensors(test_inputs, labels, test_masks)
+        batch_size = cfg['hyperparams']['batch_size']
+
+        # Create the DataLoader for our testing set.
+        test_data = TensorDataset(tensor_inputs, tensor_masks, tensor_labels)
+        test_sampler = SequentialSampler(test_data)
+        prediction_dataloader = DataLoader(test_data, sampler=test_sampler, batch_size=batch_size)
+
+
+        #load saved  model for eval
+        model = BertForSequenceClassification.from_pretrained(cfg['data']['finetuned_model'])        
         model.eval()
 
         print_classification_report(prediction_dataloader,model,LABELS)
