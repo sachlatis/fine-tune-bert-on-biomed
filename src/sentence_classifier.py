@@ -44,6 +44,7 @@ def main(method, cfg):
         sys.exit(1)
 
     elif method == 'eval':
+        ## In this version, the eval is done on a pruned model.
 
         # load the labels from training data:label is key
         df = preprocess_data(cfg['data']['test'])
