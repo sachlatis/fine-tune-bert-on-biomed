@@ -70,8 +70,7 @@ def main(method, cfg):
         #model = BertForSequenceClassification.from_pretrained(cfg['data']['finetuned_model'])
         model = BertForSequenceClassification.from_pretrained(cfg['pruning']['model_name'])
         
-        head_mask = str({0: [0, 1, 2, 3, 4, 5, 6, 8, 9, 10, 11], 1: [0, 1, 2, 3, 4, 5, 7, 8, 9, 10], 2: [2, 3, 4, 5, 6, 7, 8, 9, 10, 11], 3: [1, 3, 4, 6, 7, 9, 10, 11], 4: [0, 1, 2, 4, 5, 6, 7, 8, 10], 5: [0, 1, 2, 3, 5, 9, 11], 6: [0, 1, 2, 3, 4, 5, 6, 7, 9, 11], 7: [2, 4, 5, 6, 9, 10, 11], 8: [0, 1, 2, 3, 4, 5, 6, 8, 9, 10], 9: [0, 1, 2, 3, 4, 6, 7, 8, 9, 10, 11], 10: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 11: [0, 2, 3, 6, 7, 8, 9, 11]})
-        head_mask = np.load(head_mask)
+        head_mask = np.load('/kaggle/working/head_mask.npy')
         head_mask = torch.from_numpy(head_mask)
         heads_to_prune = {}
         for layer in range(len(head_mask)):
