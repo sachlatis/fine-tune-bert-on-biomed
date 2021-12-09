@@ -122,7 +122,7 @@ if __name__ == "__main__":
         for name, value in options:
             if name in ('-m', '--mode'):
                 mode = value
-                assert mode == "train" or mode == "eval"
+                assert mode == "train" or mode == "eval" or mode == "evalPruned"
             if name in ('-h', '--help'):
                 print ('python sentence_classifier.py --mode eval\\train ')
                 sys.exit(1)
