@@ -69,7 +69,7 @@ def main(method, cfg):
         #load saved  model for eval
         #model = BertForSequenceClassification.from_pretrained(cfg['pruning']['model_name'])
         model = BertForSequenceClassification.from_pretrained('/kaggle/working/rct/model/rct_bert_4/')
-        model = BertForSequenceClassification.from_pretrained('/kaggle/working/rct/rct_bert_17/')
+        model = BertForSequenceClassification.from_pretrained('/kaggle/working/rct/model/rct_bert_17/')
         
         head_mask = np.load('/kaggle/working/head_mask.npy')
         head_mask = torch.from_numpy(head_mask)
